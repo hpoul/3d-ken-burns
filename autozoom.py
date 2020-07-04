@@ -96,5 +96,10 @@ if __name__ == '__main__':
 		'boolInpaint': True
 	})
 
-	moviepy.editor.ImageSequenceClip(sequence=[ npyFrame[:, :, ::-1] for npyFrame in npyResult + list(reversed(npyResult))[1:] ], fps=25).speedx(2).write_gif(arguments_strOut, fps=25, program='ffmpeg')
+	clip = moviepy.editor.ImageSequenceClip(sequence=[ npyFrame[:, :, ::-1] for npyFrame in npyResult + list(reversed(npyResult))[1:] ], fps=25)
+	if 'gif' in arguments_strOut:
+		clip.speedx(2).write_gif(arguments_strOut, fps=25, program='ffmpeg')
+	else:
+		clip.write_videofile(arguments_strOut)
+	#end
 # end
