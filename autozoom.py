@@ -51,7 +51,7 @@ exec(open('./models/pointcloud-inpainting.py', 'r').read())
 ##########################################################
 
 arguments_strIn = './images/doublestrike.jpg'
-arguments_strOut = './autozoom.mp4'
+arguments_strOut = './autozoom.gif'
 
 for strOption, strArgument in getopt.getopt(sys.argv[1:], '', [ strParameter[2:] + '=' for strParameter in sys.argv[1::2] ])[0]:
 	if strOption == '--in' and strArgument != '': arguments_strIn = strArgument # path to the input image
@@ -95,5 +95,5 @@ if __name__ == '__main__':
 		'boolInpaint': True
 	})
 
-	moviepy.editor.ImageSequenceClip(sequence=[ npyFrame[:, :, ::-1] for npyFrame in npyResult + list(reversed(npyResult))[1:] ], fps=25).write_videofile(arguments_strOut)
+	moviepy.editor.ImageSequenceClip(sequence=[ npyFrame[:, :, ::-1] for npyFrame in npyResult + list(reversed(npyResult))[1:] ], fps=25).write_gif(arguments_strOut)
 # end
