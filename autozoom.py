@@ -68,8 +68,9 @@ if __name__ == '__main__':
 
 	fltRatio = float(intWidth) / float(intHeight)
 
-	intWidth = min(int(1024 * fltRatio), 1024)
-	intHeight = min(int(1024 / fltRatio), 1024)
+	fitInto = 800
+	intWidth = min(int(fitInto * fltRatio), fitInto)
+	intHeight = min(int(fitInto / fltRatio), fitInto)
 
 	npyImage = cv2.resize(src=npyImage, dsize=(intWidth, intHeight), fx=0.0, fy=0.0, interpolation=cv2.INTER_AREA)
 
@@ -95,5 +96,5 @@ if __name__ == '__main__':
 		'boolInpaint': True
 	})
 
-	moviepy.editor.ImageSequenceClip(sequence=[ npyFrame[:, :, ::-1] for npyFrame in npyResult + list(reversed(npyResult))[1:] ], fps=25).write_gif(arguments_strOut)
+	moviepy.editor.ImageSequenceClip(sequence=[ npyFrame[:, :, ::-1] for npyFrame in npyResult + list(reversed(npyResult))[1:] ], fps=25).speedx(2).write_gif(arguments_strOut, fps=25, program='ffmpeg')
 # end
